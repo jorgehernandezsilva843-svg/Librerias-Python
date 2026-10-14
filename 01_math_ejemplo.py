@@ -1,23 +1,42 @@
 """
 Ejemplo de uso de la librería estándar 'math'
 Materia: Tópicos Avanzados de Programación
-Descripción: Demuestra el uso de constantes, funciones trigonométricas,
+Descripción: Demuestra el uso de constantes (pi, e, tau, inf, nan), funciones trigonométricas,
              redondeo, logaritmos, combinatoria y operaciones matemáticas avanzadas.
 """
 
+import sys
 import math
 
+# Asegurar codificación UTF-8 en la terminal de Windows
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 def main():
-    print("=" * 60)
+    print("=" * 65)
     print("           EJEMPLO DE LA LIBRERÍA: MATH")
-    print("=" * 60)
+    print("=" * 65)
 
     # 1. Constantes matemáticas importantes
-    print("\n--- 1. Constantes Matemáticas ---")
+    print("\n--- 1. Constantes Matemáticas y Valores Especiales ---")
     print(f"Número Pi (math.pi):                {math.pi}")
     print(f"Número de Euler / Base e (math.e):  {math.e}")
     print(f"Número Tau (math.tau = 2*pi):       {math.tau}")
-    print(f"Infinito positivo (math.inf):       {math.inf}")
+    
+    # Explicación detallada de math.inf
+    print(f"\n[Explicación de math.inf]:")
+    print(f"Infinito positivo (math.inf):       {math.inf}  (Representa el infinito matemático: ∞)")
+    print(f"Infinito negativo (-math.inf):      {-math.inf} (Representa -∞)")
+    print(f"¿math.inf es mayor que 10^50?:      {math.inf > 10**50} (Siempre es mayor que cualquier número real)")
+    print(f"Comprobación con math.isinf():      {math.isinf(math.inf)} (Función para validar si un valor es infinito)")
+    print(f"Caso de uso de math.inf:            Inicializar variables de mínimo, ej. menor = math.inf")
+    
+    # Explicación de math.nan
+    print(f"Indeterminado (math.nan):           {math.nan}  (Representa 'Not a Number', ej. 0/0 o inf - inf)")
+    print(f"Comprobación con math.isnan():      {math.isnan(math.nan)}")
 
     # 2. Funciones de redondeo y valor absoluto
     print("\n--- 2. Redondeo y Valor Absoluto ---")

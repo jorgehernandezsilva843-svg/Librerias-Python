@@ -5,7 +5,14 @@ Descripción: Demuestra manipulación de fechas, horas, formatos (strftime/strpt
              operaciones con intervalos de tiempo (timedelta) y diferencias de fechas.
 """
 
+import sys
 from datetime import datetime, date, time, timedelta, timezone
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 def main():
     print("=" * 60)

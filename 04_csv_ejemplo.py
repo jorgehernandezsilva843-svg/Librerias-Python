@@ -5,8 +5,15 @@ Descripción: Demuestra lectura y escritura de archivos CSV usando tanto listas 
              como diccionarios estructurados (DictWriter/DictReader).
 """
 
+import sys
 import csv
 import os
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 NOMBRE_ARCHIVO = "estudiantes.csv"
 

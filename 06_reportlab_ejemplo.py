@@ -5,10 +5,17 @@ Descripción: Demuestra la generación de documentos PDF profesionales usando el
              Platypus de ReportLab (hojas de estilo, párrafos dinámicos, tablas estilizadas).
 """
 
+import sys
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 def generar_pdf_reportlab():
     nombre_archivo = "reporte_reportlab.pdf"

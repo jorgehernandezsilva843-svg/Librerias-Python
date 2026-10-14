@@ -6,12 +6,19 @@ Descripción: Demuestra un flujo completo de Machine Learning (Aprendizaje Autom
              clasificación (Árbol de Decisión), evaluación de métricas y predicción de nuevas muestras.
 """
 
+import sys
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import accuracy_score, classification_report, mean_squared_error, r2_score
 import numpy as np
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 def ejemplo_clasificacion():
     print("\n--- 1. Problema de Clasificación (Dataset Iris con Decision Tree) ---")

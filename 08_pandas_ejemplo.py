@@ -5,7 +5,14 @@ Descripción: Demuestra estructuras Series y DataFrame, filtrado, cálculos de c
              agrupaciones (groupby), resúmenes estadísticos (describe) y exportación de datos.
 """
 
+import sys
 import pandas as pd
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 def main():
     print("=" * 60)

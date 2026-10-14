@@ -70,7 +70,8 @@ pip install -r requirements.txt
 - **Archivo:** [`01_math_ejemplo.py`](01_math_ejemplo.py)
 - **¿Qué es?:** Módulo que proporciona acceso a las funciones matemáticas definidas por el estándar C (trigonometría, logaritmos, constantes fundamentales).
 - **Aspectos demostrados:**
-  - **Constantes:** $\pi$ (`math.pi`), $e$ (`math.e`), $\tau$ (`math.tau`) e infinito (`math.inf`).
+  - **Constantes y valores especiales:** $\pi$ (`math.pi`), $e$ (`math.e`), $\tau$ (`math.tau`), infinito positivo (`math.inf`), infinito negativo (`-math.inf`) e indeterminación (`math.nan`).
+    - *Nota sobre `inf`:* En Python y en el estándar IEEE 754 de coma flotante, `math.inf` representa formalmente el **infinito positivo** ($\infty$). Por definición no es un número entero ni finito, por lo que su representación en consola es literalmente `inf`. Se demuestra que `math.inf > 10**50` devuelve `True`, su validación con `math.isinf()` y su uso práctico en algoritmos (por ejemplo, para inicializar variables de valor mínimo).
   - **Redondeo y truncamiento:** `ceil()` (techo), `floor()` (piso), `trunc()` y valor absoluto flotante `fabs()`.
   - **Potencias y raíces:** `sqrt()` (raíz cuadrada), `pow()` (potencias) e `hypot()` (cálculo de hipotenusa euclidiana).
   - **Logaritmos:** Logaritmo natural `log()`, en base 10 `log10()`, en base 2 `log2()` y exponencial `exp()`.

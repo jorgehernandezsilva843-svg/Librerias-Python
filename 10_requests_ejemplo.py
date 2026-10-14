@@ -5,8 +5,15 @@ Descripción: Demuestra peticiones HTTP (GET, POST), manejo de cabeceras (header
              parámetros de consulta (query params), serialización JSON y códigos de estado.
 """
 
+import sys
 import requests
 import urllib3
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 # Deshabilitar advertencias de certificados no verificados en caso de proxies o entornos locales
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)

@@ -5,7 +5,14 @@ Descripción: Demuestra la creación de documentos PDF, encabezados y pies de p�
              personalizados, estilos tipográficos, colores y tablas estructuradas.
 """
 
+import sys
 from fpdf import FPDF
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 class PDFReporte(FPDF):
     def header(self):

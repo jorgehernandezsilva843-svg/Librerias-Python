@@ -5,7 +5,14 @@ Descripción: Demuestra creación de arreglos multidimensionales (ndarrays), ope
              vectorizadas, broadcasting, indexación avanzada y cálculo estadístico/matricial.
 """
 
+import sys
 import numpy as np
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 def main():
     print("=" * 60)

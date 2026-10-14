@@ -5,8 +5,15 @@ Descripción: Demuestra visualización gráfica: gráfico de líneas, gráfico d
              diagrama de dispersión e histograma dentro de una figura multipanel (subplots).
 """
 
+import sys
 import matplotlib.pyplot as plt
 import numpy as np
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 def generar_graficas():
     # Creamos una figura con una cuadrícula de 2x2 subgráficos

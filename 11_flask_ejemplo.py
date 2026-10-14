@@ -5,7 +5,14 @@ Descripción: Demuestra la creación de un servidor web y API REST con rutas est
              rutas dinámicas con parámetros, recepción de datos JSON y métodos HTTP (GET/POST).
 """
 
+import sys
 from flask import Flask, jsonify, request, render_template_string
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 app = Flask(__name__)
 

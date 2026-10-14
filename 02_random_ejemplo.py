@@ -5,7 +5,14 @@ Descripción: Demuestra generación de números pseudoaleatorios, selección de 
              permutaciones, muestreo y reproducibilidad mediante semillas (seed).
 """
 
+import sys
 import random
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 def main():
     print("=" * 60)
