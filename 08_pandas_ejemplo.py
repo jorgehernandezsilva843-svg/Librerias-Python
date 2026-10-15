@@ -62,14 +62,14 @@ def main():
     )
     print(resumen_depto)
 
-    # 7. Exportación a CSV
+    # 7. Exportación a CSV con codificación utf-8-sig (para que Excel reconozca tildes directamente)
     archivo_csv = "reporte_empleados_pandas.csv"
     try:
-        df.to_csv(archivo_csv, index=False, encoding="utf-8")
+        df.to_csv(archivo_csv, index=False, encoding="utf-8-sig")
         print(f"\n[OK] DataFrame exportado correctamente a '{archivo_csv}'")
     except PermissionError:
         archivo_alternativo = "reporte_empleados_pandas_nuevo.csv"
-        df.to_csv(archivo_alternativo, index=False, encoding="utf-8")
+        df.to_csv(archivo_alternativo, index=False, encoding="utf-8-sig")
         print(f"\n[AVISO DE PERMISOS]: No se pudo sobrescribir '{archivo_csv}' porque está abierto en Microsoft Excel u otro visor.")
         print(f"[OK] Se guardó una copia con los datos actualizados en: '{archivo_alternativo}'")
         print("(Consejo: Cierra el archivo en Excel si deseas sobrescribir directamente el original).")

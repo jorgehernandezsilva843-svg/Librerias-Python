@@ -30,14 +30,14 @@ def escribir_csv():
     campos = ["Matricula", "Nombre", "Carrera", "Promedio"]
 
     try:
-        with open(NOMBRE_ARCHIVO, mode="w", newline="", encoding="utf-8") as archivo:
+        with open(NOMBRE_ARCHIVO, mode="w", newline="", encoding="utf-8-sig") as archivo:
             escritor = csv.DictWriter(archivo, fieldnames=campos)
             escritor.writeheader()  # Escribe la fila de títulos de columna
             escritor.writerows(estudiantes)  # Escribe todos los registros
         print(f"[OK] Archivo '{NOMBRE_ARCHIVO}' generado con éxito usando DictWriter.")
     except PermissionError:
         NOMBRE_ARCHIVO = "estudiantes_nuevo.csv"
-        with open(NOMBRE_ARCHIVO, mode="w", newline="", encoding="utf-8") as archivo:
+        with open(NOMBRE_ARCHIVO, mode="w", newline="", encoding="utf-8-sig") as archivo:
             escritor = csv.DictWriter(archivo, fieldnames=campos)
             escritor.writeheader()
             escritor.writerows(estudiantes)
@@ -47,7 +47,7 @@ def escribir_csv():
 def leer_csv_estandar():
     """Lee el archivo CSV utilizando csv.reader (acceso por índices numéricos)."""
     print("\n--- Lectura con csv.reader (por lista / índice) ---")
-    with open(NOMBRE_ARCHIVO, mode="r", encoding="utf-8") as archivo:
+    with open(NOMBRE_ARCHIVO, mode="r", encoding="utf-8-sig") as archivo:
         lector = csv.reader(archivo)
         cabeceras = next(lector)  # Primera fila son las cabeceras
         print(f"Cabeceras detectadas: {cabeceras}")
@@ -61,7 +61,7 @@ def leer_csv_diccionario():
     suma_promedios = 0.0
     total_alumnos = 0
 
-    with open(NOMBRE_ARCHIVO, mode="r", encoding="utf-8") as archivo:
+    with open(NOMBRE_ARCHIVO, mode="r", encoding="utf-8-sig") as archivo:
         lector_dict = csv.DictReader(archivo)
         for fila in lector_dict:
             promedio = float(fila["Promedio"])
