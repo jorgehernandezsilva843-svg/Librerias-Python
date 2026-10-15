@@ -6,6 +6,7 @@ Descripción: Demuestra la generación de documentos PDF profesionales usando el
 """
 
 import sys
+import os
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -115,19 +116,42 @@ def generar_pdf_reportlab():
     story.append(Paragraph(f"<i>{nota_final}</i>", estilo_cuerpo))
 
     # Construcción final del PDF
+    archivo_final = nombre_archivo
     try:
         doc.build(story)
-        print(f"[OK] Archivo PDF generado exitosamente: '{nombre_archivo}'")
     except PermissionError:
-        nombre_alternativo = "reporte_reportlab_nuevo.pdf"
+        archivo_final = "reporte_reportlab_nuevo.pdf"
         doc_alt = SimpleDocTemplate(
-            nombre_alternativo,
+            archivo_final,
             pagesize=letter,
             rightMargin=40, leftMargin=40, topMargin=40, bottomMargin=40
         )
         doc_alt.build(story)
         print(f"[AVISO DE PERMISOS]: '{nombre_archivo}' está abierto en el visor de PDF.")
-        print(f"[OK] Se guardó una copia en: '{nombre_alternativo}'")
+        print(f"[OK] Se guardó una copia en: '{archivo_final}'")
+
+    tamano_bytes = os.path.getsize(archivo_final) if os.path.exists(archivo_final) else 0
+
+    # Resumen informativo detallado del PDF en consola
+    print(f"\n[OK] Documento PDF generado exitosamente: '{archivo_final}'")
+    print("-" * 60)
+    print("         INFORMACIÓN DEL ARCHIVO PDF (REPORTLAB)")
+    print("-" * 60)
+    print(f"Ruta en disco:        {os.path.abspath(archivo_final)}")
+    print(f"Tamaño del archivo:   {tamano_bytes / 1024:.2f} KB ({tamano_bytes:,} bytes)")
+    print(f"Motor de maquetación: ReportLab Platypus (Flowables)")
+    print(f"Dimensiones / Hoja:   Tamaño Carta (Letter: 8.5 x 11 pulgadas)")
+    print(f"Márgenes:             40 pt (Izquierdo, Derecho, Superior, Inferior)")
+    print(f"Elementos del flujo (Story):")
+    print(f"  • Título institucional con ParagraphStyle (Color: #1A365D, Bold 18pt)")
+    print(f"  • Subtítulo con estilo Oblique (Color: #4A5568, 11pt)")
+    print(f"  • Párrafo de descripción técnica justificada con interlineado leading=14")
+    print(f"  • Tabla estilizada con {len(datos_tabla)} filas y {len(datos_tabla[0])} columnas")
+    print(f"  • TableStyle con fondo corporativo, texto blanco y filas alternadas")
+    print(f"  • Pie de nota final")
+    print("-" * 60)
+    print("Puedes abrir el archivo generado haciendo doble clic sobre él o ejecutando:")
+    print(f"start '{archivo_final}'")
 
 def main():
     print("=" * 60)

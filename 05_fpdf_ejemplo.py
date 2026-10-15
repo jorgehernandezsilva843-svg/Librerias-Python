@@ -6,6 +6,7 @@ Descripción: Demuestra la creación de documentos PDF, encabezados y pies de p�
 """
 
 import sys
+import os
 from fpdf import FPDF
 
 if sys.platform == "win32":
@@ -104,14 +105,36 @@ def generar_pdf():
     pdf.cell(0, 6, "Total de alumnos registrados: 5 | Estatus: Aprobados", new_x="LMARGIN", new_y="NEXT")
 
     nombre_salida = "reporte_fpdf.pdf"
+    archivo_final = nombre_salida
     try:
         pdf.output(nombre_salida)
-        print(f"[OK] Archivo PDF generado exitosamente: '{nombre_salida}'")
     except PermissionError:
-        nombre_alternativo = "reporte_fpdf_nuevo.pdf"
-        pdf.output(nombre_alternativo)
+        archivo_final = "reporte_fpdf_nuevo.pdf"
+        pdf.output(archivo_final)
         print(f"[AVISO DE PERMISOS]: '{nombre_salida}' está abierto en el visor de PDF.")
-        print(f"[OK] Se guardó una copia en: '{nombre_alternativo}'")
+        print(f"[OK] Se guardó una copia en: '{archivo_final}'")
+
+    tamano_bytes = os.path.getsize(archivo_final) if os.path.exists(archivo_final) else 0
+
+    # Resumen informativo detallado del PDF en consola
+    print(f"\n[OK] Documento PDF generado exitosamente: '{archivo_final}'")
+    print("-" * 60)
+    print("           INFORMACIÓN DEL ARCHIVO PDF (FPDF2)")
+    print("-" * 60)
+    print(f"Ruta en disco:        {os.path.abspath(archivo_final)}")
+    print(f"Tamaño del archivo:   {tamano_bytes / 1024:.2f} KB ({tamano_bytes:,} bytes)")
+    print(f"Total de páginas:     {pdf.page_no()}")
+    print(f"Formato de página:    A4 vertical (210 x 297 mm)")
+    print(f"Motor utilizado:      FPDF2 (Python)")
+    print(f"Elementos incluidos:")
+    print(f"  • Encabezado institucional personalizado con línea divisoria")
+    print(f"  • Párrafo descriptivo con ajuste automático (multi_cell)")
+    print(f"  • Tabla de datos con {len(filas)} filas y {len(columnas)} columnas")
+    print(f"  • Estilos de celda: encabezado azul marino y filas alternadas tipo cebra")
+    print(f"  • Pie de página con paginación dinámica 'Página X/Y'")
+    print("-" * 60)
+    print("Puedes abrir el archivo generado haciendo doble clic sobre él o ejecutando:")
+    print(f"start '{archivo_final}'")
 
 def main():
     print("=" * 60)
