@@ -67,14 +67,17 @@ def generar_graficas():
     nombre_salida = "graficas_matplotlib.png"
     try:
         plt.savefig(nombre_salida, dpi=300)
-        print(f"[OK] Gráfica generada y guardada como imagen en: '{nombre_salida}'")
+        print(f"[OK] Gráfica guardada como imagen en: '{nombre_salida}'")
     except PermissionError:
         nombre_alternativo = "graficas_matplotlib_nueva.png"
         plt.savefig(nombre_alternativo, dpi=300)
-        print(f"[AVISO DE PERMISOS]: '{nombre_salida}' está abierta en el visor de imágenes.")
+        print(f"[AVISO DE PERMISOS]: '{nombre_salida}' está abierta en el visor.")
         print(f"[OK] Se guardó una copia en: '{nombre_alternativo}'")
-    finally:
-        plt.close()
+    
+    print("\n[INFO] Abriendo ventana interactiva de Matplotlib...")
+    print("(Puedes interactuar con los botones de zoom/pan; cierra la ventana para finalizar el script).")
+    plt.show()
+    plt.close()
 
 def main():
     print("=" * 60)
