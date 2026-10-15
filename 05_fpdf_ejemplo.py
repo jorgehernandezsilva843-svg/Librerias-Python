@@ -104,8 +104,14 @@ def generar_pdf():
     pdf.cell(0, 6, "Total de alumnos registrados: 5 | Estatus: Aprobados", new_x="LMARGIN", new_y="NEXT")
 
     nombre_salida = "reporte_fpdf.pdf"
-    pdf.output(nombre_salida)
-    print(f"[OK] Archivo PDF generado exitosamente: '{nombre_salida}'")
+    try:
+        pdf.output(nombre_salida)
+        print(f"[OK] Archivo PDF generado exitosamente: '{nombre_salida}'")
+    except PermissionError:
+        nombre_alternativo = "reporte_fpdf_nuevo.pdf"
+        pdf.output(nombre_alternativo)
+        print(f"[AVISO DE PERMISOS]: '{nombre_salida}' está abierto en el visor de PDF.")
+        print(f"[OK] Se guardó una copia en: '{nombre_alternativo}'")
 
 def main():
     print("=" * 60)

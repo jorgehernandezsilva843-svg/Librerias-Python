@@ -65,9 +65,16 @@ def generar_graficas():
     plt.tight_layout()
 
     nombre_salida = "graficas_matplotlib.png"
-    plt.savefig(nombre_salida, dpi=300)
-    plt.close()
-    print(f"[OK] Gráfica generada y guardada como imagen en: '{nombre_salida}'")
+    try:
+        plt.savefig(nombre_salida, dpi=300)
+        print(f"[OK] Gráfica generada y guardada como imagen en: '{nombre_salida}'")
+    except PermissionError:
+        nombre_alternativo = "graficas_matplotlib_nueva.png"
+        plt.savefig(nombre_alternativo, dpi=300)
+        print(f"[AVISO DE PERMISOS]: '{nombre_salida}' está abierta en el visor de imágenes.")
+        print(f"[OK] Se guardó una copia en: '{nombre_alternativo}'")
+    finally:
+        plt.close()
 
 def main():
     print("=" * 60)

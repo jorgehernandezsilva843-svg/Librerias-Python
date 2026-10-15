@@ -64,8 +64,15 @@ def main():
 
     # 7. Exportación a CSV
     archivo_csv = "reporte_empleados_pandas.csv"
-    df.to_csv(archivo_csv, index=False, encoding="utf-8")
-    print(f"\n[OK] DataFrame exportado correctamente a '{archivo_csv}'")
+    try:
+        df.to_csv(archivo_csv, index=False, encoding="utf-8")
+        print(f"\n[OK] DataFrame exportado correctamente a '{archivo_csv}'")
+    except PermissionError:
+        archivo_alternativo = "reporte_empleados_pandas_nuevo.csv"
+        df.to_csv(archivo_alternativo, index=False, encoding="utf-8")
+        print(f"\n[AVISO DE PERMISOS]: No se pudo sobrescribir '{archivo_csv}' porque está abierto en Microsoft Excel u otro visor.")
+        print(f"[OK] Se guardó una copia con los datos actualizados en: '{archivo_alternativo}'")
+        print("(Consejo: Cierra el archivo en Excel si deseas sobrescribir directamente el original).")
 
 if __name__ == "__main__":
     main()

@@ -115,8 +115,19 @@ def generar_pdf_reportlab():
     story.append(Paragraph(f"<i>{nota_final}</i>", estilo_cuerpo))
 
     # Construcción final del PDF
-    doc.build(story)
-    print(f"[OK] Archivo PDF generado exitosamente: '{nombre_archivo}'")
+    try:
+        doc.build(story)
+        print(f"[OK] Archivo PDF generado exitosamente: '{nombre_archivo}'")
+    except PermissionError:
+        nombre_alternativo = "reporte_reportlab_nuevo.pdf"
+        doc_alt = SimpleDocTemplate(
+            nombre_alternativo,
+            pagesize=letter,
+            rightMargin=40, leftMargin=40, topMargin=40, bottomMargin=40
+        )
+        doc_alt.build(story)
+        print(f"[AVISO DE PERMISOS]: '{nombre_archivo}' está abierto en el visor de PDF.")
+        print(f"[OK] Se guardó una copia en: '{nombre_alternativo}'")
 
 def main():
     print("=" * 60)

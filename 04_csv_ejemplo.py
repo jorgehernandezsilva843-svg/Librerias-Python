@@ -26,14 +26,23 @@ def escribir_csv():
         {"Matricula": "A004", "Nombre": "Beatriz Ramos", "Carrera": "Electrónica", "Promedio": 97.0},
     ]
 
+    global NOMBRE_ARCHIVO
     campos = ["Matricula", "Nombre", "Carrera", "Promedio"]
 
-    with open(NOMBRE_ARCHIVO, mode="w", newline="", encoding="utf-8") as archivo:
-        escritor = csv.DictWriter(archivo, fieldnames=campos)
-        escritor.writeheader()  # Escribe la fila de títulos de columna
-        escritor.writerows(estudiantes)  # Escribe todos los registros
-    
-    print(f"[OK] Archivo '{NOMBRE_ARCHIVO}' generado con éxito usando DictWriter.")
+    try:
+        with open(NOMBRE_ARCHIVO, mode="w", newline="", encoding="utf-8") as archivo:
+            escritor = csv.DictWriter(archivo, fieldnames=campos)
+            escritor.writeheader()  # Escribe la fila de títulos de columna
+            escritor.writerows(estudiantes)  # Escribe todos los registros
+        print(f"[OK] Archivo '{NOMBRE_ARCHIVO}' generado con éxito usando DictWriter.")
+    except PermissionError:
+        NOMBRE_ARCHIVO = "estudiantes_nuevo.csv"
+        with open(NOMBRE_ARCHIVO, mode="w", newline="", encoding="utf-8") as archivo:
+            escritor = csv.DictWriter(archivo, fieldnames=campos)
+            escritor.writeheader()
+            escritor.writerows(estudiantes)
+        print(f"[AVISO DE PERMISOS]: 'estudiantes.csv' está abierto en Excel u otro programa.")
+        print(f"[OK] Se guardó una copia en '{NOMBRE_ARCHIVO}' para continuar la ejecución.")
 
 def leer_csv_estandar():
     """Lee el archivo CSV utilizando csv.reader (acceso por índices numéricos)."""
